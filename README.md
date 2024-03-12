@@ -1,0 +1,1 @@
+# Gerenciamento_de_Loja_de_Joias_e_Bijuterias
