@@ -1,1 +1,6 @@
-# Gerenciamento_de_Loja_de_Joias_e_Bijuterias
+# Gerenciamento de Loja de Joias e Bijuterias
+
+> ***COMPONENTES***
+> - ANTONIO VINCIUS OLIVEIRA LIMA
+> - MARCELO AUGUSTO DA SILVA FERNANDES
+---
