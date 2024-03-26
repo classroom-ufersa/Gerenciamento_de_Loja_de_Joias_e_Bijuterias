@@ -14,13 +14,13 @@ def adicionar_Acessorio(sessoes, sessao):
 
     else:
         tipo = int(input('Digite o tipo do acessório\n[1] Joia\n[2] Bijuteria\n>>> '))
-        tipo = tipos[tipo - 1]
+        
         preco = float(input('Digite o preço do acessório: R$'))
         quantidade = int(input('Informe a quantidade no estoque: '))
 
         print(f'Acessório "{nome}" adicionado com sucesso!')
 
-        sessoes.append({'nome': nome, 'tipo': tipo, 'preco': preco, 'quantidade': quantidade})
+        sessoes.append({'nome': nome, 'tipo': tipos[tipo - 1], 'preco': preco, 'quantidade': quantidade})
         
 
 def buscar_Acessorio(sessao, busca='', retornar=False):

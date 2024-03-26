@@ -1,0 +1,2 @@
+{'nome': 'xx', 'descricao': 'xx', 'acessorios': [{'nome': 'cecwewe', 'tipo': 'Bijuteria', 'preco': 222.0, 'quantidade': 222}, {'nome': 'colar', 'tipo': 'Joia', 'preco': 333.0, 'quantidade': 33}]}
+{'nome': 'outro', 'descricao': 'dewe', 'acessorios': [{'nome': 'relogio', 'tipo': 'Bijuteria', 'preco': 222.0, 'quantidade': 444}]}

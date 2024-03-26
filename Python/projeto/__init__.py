@@ -1,6 +1,7 @@
 def menu():
     """
     """
+
     print('=-' * 14)
     print(' LOJA DE JOIAS E BIJUTERIAS')
     print('=-' * 14)
@@ -17,4 +18,17 @@ def ler_Arquivo():
     """
     """
 
-    
+    with open('sessoes.txt', 'r') as file:
+        sessoes = file.readlines()
+        
+    sessoes = [eval(sessao) for sessao in sessoes]
+    return sessoes
+
+
+def escrever_Arquivo(sessoes):
+    """
+    """
+
+    with open('sessoes.txt', 'w') as file:
+        for sessao in sessoes:
+            file.write(f'{sessao}\n')

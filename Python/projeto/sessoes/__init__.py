@@ -79,8 +79,10 @@ def realizar_Venda(sessao):
         if nome == sessoes['nome'] and len(sessoes['acessorios']) == 0:
             print('Sessão encontrada, mas não possui acessórios cadastrados!')
             return None
-            
-        else:                
+
+        else:          
+            print('Sessão foi encontrada!')
+                  
             compra = str(input('Qual o nome do acessório? '))
             
             for count in range(0, len(sessao)):
@@ -90,14 +92,18 @@ def realizar_Venda(sessao):
                         print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\nPreço: R${acessorio["preco"]}\n'
                               f'Disponível no estoque: {acessorio["quantidade"]}')
 
-                        quantidade = int(input('Informe a quantidade de itens: '))
+                        while True:
+                            quantidade = int(input('Informe a quantidade de itens: '))
 
-                        if quantidade <= (acessorio['quantidade']):
-                            acessorio['quantidade'] = acessorio['quantidade'] - quantidade
-                            print(f'Valor total da compra: R${acessorio["preco"] * quantidade}')
-                            print('Venda realizada com sucesso!')
-                            return None
-                        
+                            if quantidade <= (acessorio['quantidade']):
+                                acessorio['quantidade'] = acessorio['quantidade'] - quantidade
+                                print(f'Valor total da compra: R${acessorio["preco"] * quantidade}')
+                                print('Venda realizada com sucesso!')
+                                return None
+                            
+                            else:
+                                print('Essa quantidade de items não está disponível no estoque!')
+                                
             print('Acessório não encontrado!')
             return None
 
@@ -115,4 +121,7 @@ def ver_Sessoes_Acessorios(sessao):
         return None
     
     for sessoes in sessao:
-        print(f'Nome: {sessoes["nome"]}\nDescrição: {sessoes["descricao"]}\nAcessórios: {sessoes["acessorios"]}\n')
+        print(f'Nome: {sessoes["nome"]}\nDescrição: {sessoes["descricao"]}\n')
+        for acessorio in sessoes['acessorios']:
+            print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\n'
+                  f'Preço: R${acessorio["preco"]}\nQuantidade: {acessorio["quantidade"]}\n')
