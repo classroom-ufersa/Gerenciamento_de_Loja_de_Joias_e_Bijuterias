@@ -1,6 +1,7 @@
 def menu():
     """
     """
+    from projeto import read_numbers
 
     print('=-' * 14)
     print(' LOJA DE JOIAS E BIJUTERIAS')
@@ -10,7 +11,7 @@ def menu():
           '[6] REMOVER ACESSÓRIO\n[7] REMOVER SESSÃO EXISTENTE\n[8] SAIR')
     print('-' * 28)
 
-    choice = int(input('Escolha uma opção:\n>>> '))
+    choice = read_numbers('Escolha uma opção:\n>>> ')
 
     return choice
 
@@ -32,3 +33,70 @@ def escrever_Arquivo(sessoes):
     with open('sessoes.txt', 'w') as file:
         for sessao in sessoes:
             file.write(f'{sessao}\n')
+
+
+def read_numbers(msg, test=False):
+    """
+    Função para ler apenas números.
+    """
+
+    while True:
+        try:
+            num = str(input(msg))
+
+        except EOFError:
+            print('\033[31mERRO! Por favor, digite um número inteiro válido.\033[m')
+
+        else:            
+            if num[0] != '0':
+                try:
+                    num = int(num)
+
+                except (ValueError, TypeError, NameError, EOFError):
+                    print('\033[31mERRO! Por favor, digite um número inteiro válido.\033[m') 
+
+                else:
+                    return num
+            else:
+                print('\033[31mERRO! Por favor, digite uma opção válida.\033[m') if test == False else print('\033[31mERRO! Por favor, digite um número inteiro válido.\033[m')
+
+
+def read_float_numbers(msg):
+    """
+    """
+
+    while True:
+        valor = str(input(f'{msg}')).replace(",", ".").strip()
+
+        if len(valor) > 2 and '.' in valor or valor.isnumeric():
+            break
+
+        if valor == "" or valor.isalpha():
+            print(f'\033[31mERRO: "{valor}" é um preço inválido!\033[m')
+
+        else:
+            print(f'\033[31mERRO: "{valor}" é um preço inválido!\033[m')
+
+    return float(valor)
+
+
+def read_names(msg):
+    """
+    Função para ler apenas nomes.
+    """
+
+    while True:
+        try:
+            nome = str(input(msg))
+
+            if not nome.replace(" ", "").isalpha():
+                raise ValueError('O nome deve conter apenas letras.')
+
+        except ValueError as ve:
+            print('\033[31mERRO! Por favor, digite um nome válido.\033[m')
+
+        except EOFError:
+            print('\033[31mERRO! Por favor, digite um nome válido.\033[m')
+
+        else:
+            return nome.strip().capitalize()

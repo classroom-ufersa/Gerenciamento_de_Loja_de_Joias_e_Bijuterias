@@ -1,13 +1,11 @@
-from projeto import *
+from projeto import menu, ler_Arquivo
 from projeto.sessoes import *
 from projeto.acessorios import *
 
 Sessoes = ler_Arquivo()
 choice = 0
 
-while True:
-    escrever_Arquivo(Sessoes)
-    
+while True:    
     choice = menu()
 
     if choice == 1:

@@ -1,3 +1,4 @@
+from projeto import read_names, escrever_Arquivo
 from os import system
 
 def adiconar_Sessao(sessao):
@@ -5,16 +6,17 @@ def adiconar_Sessao(sessao):
     """
     system('cls')
     
-    nome = str(input('Digite o nome da sessão: '))
+    nome = read_names('Digite o nome da sessão: ')
 
     if nome in [sessao['nome'] for sessao in sessao]:
-        print('Sessão já cadastrada!')
+        print(f'Sessão "{nome}" já cadastrada!')
         return None
     
     else:
-        descricao = str(input('Digite a descrisão da sessão: '))
+        descricao = read_names('Digite a descrisão da sessão: ')
 
         sessao.append({'nome': nome, 'descricao': descricao, 'acessorios': []})
+        escrever_Arquivo(sessao)
 
         print('Sessão adicionada com sucesso!')
 
@@ -31,7 +33,7 @@ def adicionar_Acessorios_Sessao(sessao):
         return None
 
     else:
-        nome = str(input('Qual o nome da sessao? '))
+        nome = read_names('Qual o nome da sessao? ')
 
         for sessoes in sessao:
             if nome == sessoes['nome']:
@@ -39,6 +41,7 @@ def adicionar_Acessorios_Sessao(sessao):
                 system('pause')
 
                 adicionar_Acessorio(sessoes['acessorios'], sessao)
+                escrever_Arquivo(sessao)
                 return None
                 
         print('Sessão não encontrada!')
@@ -53,12 +56,13 @@ def remover_Sessao(sessao):
         print('Nenhuma sessão cadastrada!') 
         return None
     
-    nome = str(input('Qual o nome da sessão? '))
+    nome = read_names('Qual o nome da sessão? ')
 
     for sessoes in sessao:
         if nome == sessoes['nome']:
-            print('Sessão encontrada!')
-            system('pause')
+            print('Sessão encontrada! Removendo...')
+            sessao.remove(sessoes)
+            escrever_Arquivo(sessao)
             return None
                 
     print('Sessão não encontrada!')
@@ -67,13 +71,15 @@ def remover_Sessao(sessao):
 def realizar_Venda(sessao):
     """
     """
+    from projeto import read_numbers
+
     system('cls')
 
     if len(sessao) == 0:
         print('Nenhuma sessão cadastrada!') 
         return None
 
-    nome = str(input('Qual o nome da sessão? '))
+    nome = read_names('Qual o nome da sessão? ')
 
     for sessoes in sessao:
         if nome == sessoes['nome'] and len(sessoes['acessorios']) == 0:
@@ -83,7 +89,7 @@ def realizar_Venda(sessao):
         else:          
             print('Sessão foi encontrada!')
                   
-            compra = str(input('Qual o nome do acessório? '))
+            compra = read_names('Qual o nome do acessório? ')
             
             for count in range(0, len(sessao)):
                 for acessorio in sessao[count]['acessorios']:
@@ -93,11 +99,12 @@ def realizar_Venda(sessao):
                               f'Disponível no estoque: {acessorio["quantidade"]}')
 
                         while True:
-                            quantidade = int(input('Informe a quantidade de itens: '))
+                            quantidade = read_numbers('Informe a quantidade de itens: ', True)
 
                             if quantidade <= (acessorio['quantidade']):
                                 acessorio['quantidade'] = acessorio['quantidade'] - quantidade
                                 print(f'Valor total da compra: R${acessorio["preco"] * quantidade}')
+                                escrever_Arquivo(sessao)
                                 print('Venda realizada com sucesso!')
                                 return None
                             
@@ -115,9 +122,8 @@ def ver_Sessoes_Acessorios(sessao):
     """
     system('cls')
 
-    # AJEITAR *****
     if len(sessao) == 0:
-        print('Nenhuma sessão/acessório cadastrado!') 
+        print('Nenhuma sessão cadastrado!') 
         return None
     
     for sessoes in sessao:
