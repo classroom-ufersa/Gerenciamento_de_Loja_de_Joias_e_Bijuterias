@@ -15,6 +15,37 @@ def menu():
 
     return choice
 
+
+def merge_sort(sessoes, chave):
+    if len(sessoes) > 1:
+        meio = len(sessoes) // 2  
+        metade_esquerda = sessoes[:meio]
+        metade_direita = sessoes[meio:]
+
+        merge_sort(metade_esquerda, chave)
+        merge_sort(metade_direita, chave)
+
+        i = j = k = 0  
+        while i < len(metade_esquerda) and j < len(metade_direita):
+            if metade_esquerda[i][chave] < metade_direita[j][chave]:
+                sessoes[k] = metade_esquerda[i]
+                i += 1
+            else:
+                sessoes[k] = metade_direita[j]
+                j += 1
+            k += 1
+
+        while i < len(metade_esquerda):
+            sessoes[k] = metade_esquerda[i]
+            i += 1
+            k += 1
+
+        while j < len(metade_direita):
+            sessoes[k] = metade_direita[j]
+            j += 1
+            k += 1
+
+
 def ler_Arquivo():
     """
     """
@@ -100,3 +131,4 @@ def read_names(msg):
 
         else:
             return nome.strip().capitalize()
+        

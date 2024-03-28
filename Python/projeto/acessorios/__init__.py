@@ -4,6 +4,8 @@ from os import system
 def adicionar_Acessorio(sessoes, sessao):
     """
     """
+    from projeto import merge_sort
+
     system('cls')
     
     tipos = ('Joia', 'Bijuteria')
@@ -28,6 +30,7 @@ def adicionar_Acessorio(sessoes, sessao):
         print(f'Acessório "{nome}" adicionado com sucesso!')
 
         sessoes.append({'nome': nome, 'tipo': tipos[tipo - 1], 'preco': preco, 'quantidade': quantidade})
+        merge_sort(sessoes, 'nome')
 
 
 def buscar_Acessorio(sessao, busca='', retornar=False):

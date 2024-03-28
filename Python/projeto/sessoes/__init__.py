@@ -1,4 +1,4 @@
-from projeto import read_names, escrever_Arquivo
+from projeto import read_names, escrever_Arquivo, merge_sort
 from os import system
 
 def adiconar_Sessao(sessao):
@@ -16,6 +16,7 @@ def adiconar_Sessao(sessao):
         descricao = read_names('Digite a descrisão da sessão: ')
 
         sessao.append({'nome': nome, 'descricao': descricao, 'acessorios': []})
+        merge_sort(sessao, 'nome')
         escrever_Arquivo(sessao)
 
         print('Sessão adicionada com sucesso!')
