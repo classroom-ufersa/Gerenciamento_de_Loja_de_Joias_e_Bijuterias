@@ -54,7 +54,8 @@ def ler_Arquivo():
         sessoes = file.readlines()
         
     sessoes = [eval(sessao) for sessao in sessoes]
-    return sessoes
+
+    return sessoes 
 
 
 def escrever_Arquivo(sessoes):
@@ -75,11 +76,11 @@ def read_numbers(msg, test=False):
         try:
             num = str(input(msg))
 
-        except EOFError:
+        except (EOFError, IndexError):
             print('\033[31mERRO! Por favor, digite um número inteiro válido.\033[m')
 
-        else:            
-            if num[0] != '0':
+        else:    
+            if len(num) > 0 and num[0] != '0':
                 try:
                     num = int(num)
 
@@ -130,5 +131,5 @@ def read_names(msg):
             print('\033[31mERRO! Por favor, digite um nome válido.\033[m')
 
         else:
-            return nome.strip().capitalize()
+            return nome.strip().title()
         

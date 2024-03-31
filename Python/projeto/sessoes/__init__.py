@@ -128,6 +128,7 @@ def ver_Sessoes_Acessorios(sessao):
         return None
     
     for sessoes in sessao:
+        print('=' * 20)
         print(f'Nome: {sessoes["nome"]}\nDescrição: {sessoes["descricao"]}\n')
         for acessorio in sessoes['acessorios']:
             print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\n'

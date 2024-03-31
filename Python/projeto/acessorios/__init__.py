@@ -8,7 +8,7 @@ def adicionar_Acessorio(sessoes, sessao):
 
     system('cls')
     
-    tipos = ('Joia', 'Bijuteria')
+    tipos = ('Jóia', 'Bijuteria')
     
     nome = read_names('Digite o nome do acessório: ')
 
@@ -56,10 +56,13 @@ def buscar_Acessorio(sessao, busca='', retornar=False):
                 print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\n'
                       f'Preço: R${acessorio["preco"]}\nQuantidade: {acessorio["quantidade"]}')
                 if retornar == True:
-                    return False
-                
+                    return False                
+                return None
+            
             elif nome == acessorio['nome'] and retornar == True:
                 return True     # Acessório não foi encontrado...
+            
+    print('Acessório não encontrado!') if retornar == False else None
 
 
 def remover_Acessorio(sessao):
