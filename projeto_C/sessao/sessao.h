@@ -15,6 +15,10 @@ void adicionar_acessorio(Sessao *inicio, char nome_sessao[], Acessorio *novo_ace
 
 void remover_sessao(Sessao **inicio);
 
+void remover_acessorio(Sessao *sessao);
+
+void realizar_venda(Sessao *sessao);
+
 void buscar_acessorio(Sessao *inicio);
 
 void salvar_dados(Sessao *inicio);

@@ -50,8 +50,9 @@ void listar_sessoes(Sessao *inicio) {
         printf("Acessorios:\n");
         Acessorio *acessorio_atual = atual->acessorios;
         while (acessorio_atual != NULL) {
+            printf("\n");
             printf("Nome: %s\n", acessorio_atual->nome);
-            printf("Tipo: %d\n", acessorio_atual->tipo);
+            printf("Tipo: %s\n", acessorio_atual->tipo);
             printf("Preco: %.2f\n", acessorio_atual->preco);
             printf("Quantidade em estoque: %d\n", acessorio_atual->quantidade);
             acessorio_atual = acessorio_atual->proximo;
@@ -63,6 +64,7 @@ void listar_sessoes(Sessao *inicio) {
 
 void adicionar_acessorio(Sessao *inicio, char nome_sessao[], Acessorio *novo_acessorio) {
     Sessao *sessao_atual = inicio;
+    
     while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
         sessao_atual = sessao_atual->proximo;
     }
@@ -84,6 +86,89 @@ void adicionar_acessorio(Sessao *inicio, char nome_sessao[], Acessorio *novo_ace
         atual->proximo = novo_acessorio;
     }
 }
+
+// Função para remover um acessório de uma sessão
+void remover_acessorio(Sessao *lista_sessoes) {
+    char nome_acessorio[50];
+    char nome_sessao[50];
+    printf("Digite o nome da sessao onde deseja remover o acessorio: ");
+    scanf(" %[^\n]", nome_sessao);
+
+    printf("Digite o nome do acessorio a ser removido: ");
+    scanf(" %[^\n]", nome_acessorio);
+
+    Sessao *sessao_atual = lista_sessoes;
+    while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
+        sessao_atual = sessao_atual->proximo;
+    }
+
+    if (sessao_atual == NULL) {
+        printf("Sessao nao encontrada.\n");
+        return;
+    }
+
+    Acessorio *atual = sessao_atual->acessorios;
+    Acessorio *anterior = NULL;
+
+    while (atual != NULL && strcmp(atual->nome, nome_acessorio) != 0) {
+        anterior = atual;
+        atual = atual->proximo;
+    }
+
+    if (atual != NULL) {
+        if (anterior == NULL) {
+            sessao_atual->acessorios = atual->proximo;
+        } else {
+            anterior->proximo = atual->proximo;
+        }
+        printf("Acessorio removido com sucesso da sessao %s!\n", sessao_atual->nome);
+        free(atual);
+    } else {
+        printf("Acessorio nao encontrado na sessao %s.\n", nome_sessao);
+    }
+}
+
+void realizar_venda(Sessao *lista_sessoes) {
+    char nome_acessorio[50];
+    int quantidade;
+    char nome_sessao[50];
+
+    printf("Digite o nome da sessao onde deseja realizar a venda: ");
+    scanf(" %[^\n]", nome_sessao);
+
+    printf("Digite o nome do acessorio a ser vendido: ");
+    scanf(" %[^\n]", nome_acessorio);
+
+    printf("Digite a quantidade a ser vendida: ");
+    scanf("%d", &quantidade);
+
+    Sessao *sessao_atual = lista_sessoes;
+    while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
+        sessao_atual = sessao_atual->proximo;
+    }
+
+    if (sessao_atual == NULL) {
+        printf("Sessao nao encontrada.\n");
+        return;
+    }
+
+    Acessorio *atual = sessao_atual->acessorios;
+    while (atual != NULL && strcmp(atual->nome, nome_acessorio) != 0) {
+        atual = atual->proximo;
+    }
+
+    if (atual != NULL) {
+        if (atual->quantidade >= quantidade) {
+            atual->quantidade -= quantidade;
+            printf("%d unidades de %s vendidas com sucesso na sessao %s!\n", quantidade, atual->nome, nome_sessao);
+        } else {
+            printf("Quantidade insuficiente em estoque na sessao %s.\n", nome_sessao);
+        }
+    } else {
+        printf("Acessorio nao encontrado na sessao %s.\n", nome_sessao);
+    }
+}
+
 
 // Função para buscar um acessório em uma sessão específica
 void buscar_acessorio(Sessao *inicio) {
@@ -116,7 +201,7 @@ void buscar_acessorio(Sessao *inicio) {
     } else {
         printf("Acessorio encontrado na sessao '%s':\n", nome_sessao);
         printf("Nome: %s\n", acessorio_atual->nome);
-        printf("Tipo: %d\n", acessorio_atual->tipo);
+        printf("Tipo: %s\n", acessorio_atual->tipo);
         printf("Preco: %.2f\n", acessorio_atual->preco);
         printf("Quantidade em estoque: %d\n", acessorio_atual->quantidade);
     }
@@ -162,7 +247,7 @@ void salvar_dados(Sessao *inicio) {
         while (atual_acessorio != NULL) {
             fprintf(arquivo, "%s\n", "ACESSORIOS:");
             fprintf(arquivo, "%s\n", atual_acessorio->nome);
-            fprintf(arquivo, "%d\n", atual_acessorio->tipo);
+            fprintf(arquivo, "%s\n", atual_acessorio->tipo);
             fprintf(arquivo, "%.2f\n", atual_acessorio->preco);
             fprintf(arquivo, "%d\n", atual_acessorio->quantidade);
             atual_acessorio = atual_acessorio->proximo;
@@ -191,7 +276,7 @@ Sessao *ler_dados_salvos() {
     char nome_sessao[50];
     char descricao_sessao[100];
     char nome_acessorio[50];
-    int tipo_acessorio;
+    char tipo_acessorio[20];
     float preco_acessorio;
     int quantidade_acessorio;
 
@@ -231,8 +316,11 @@ Sessao *ler_dados_salvos() {
         } else if (strstr(linha, "ACESSORIOS:") != NULL && atual != NULL) {
             // Lendo os acessórios da sessão
             fgets(nome_acessorio, sizeof(nome_acessorio), arquivo);
-            nome_acessorio[strcspn(nome_acessorio, "\n")] = '\0'; // Remover nova linha
-            fscanf(arquivo, "%d\n", &tipo_acessorio);
+            nome_acessorio[strcspn(nome_acessorio, "\n")] = '\0';
+
+            fgets(tipo_acessorio, sizeof(tipo_acessorio), arquivo);
+            tipo_acessorio[strcspn(tipo_acessorio, "\n")] = '\0';
+
             fscanf(arquivo, "%f\n", &preco_acessorio);
             fscanf(arquivo, "%d\n", &quantidade_acessorio);
             
@@ -246,7 +334,7 @@ Sessao *ler_dados_salvos() {
             
             // Copiar os dados para o novo acessório
             strcpy(novo_acessorio->nome, nome_acessorio);
-            novo_acessorio->tipo = tipo_acessorio;
+            strcpy(novo_acessorio->tipo, tipo_acessorio);
             novo_acessorio->preco = preco_acessorio;
             novo_acessorio->quantidade = quantidade_acessorio;
             novo_acessorio->proximo = NULL;
