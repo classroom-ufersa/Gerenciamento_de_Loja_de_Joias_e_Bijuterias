@@ -1,22 +1,46 @@
 def menu():
     """
     """
-    from projeto import read_numbers
 
     print('=-' * 14)
     print(' LOJA DE JOIAS E BIJUTERIAS')
     print('=-' * 14)
     print('[1] ADICIONAR ACESSÓRIO\n[2] ADICIONAR NOVA SESSÃO\n[3] BUSCAR ACESSÓRIO\n'
           '[4] VER TODAS AS SESSÕES E A ACESSÓRIOS\n[5] REALIZAR VENDA DE ACESSÓRIOS\n'
-          '[6] REMOVER ACESSÓRIO\n[7] REMOVER SESSÃO EXISTENTE\n[8] SAIR')
+          '[6] REMOVER ACESSÓRIO\n[7] REMOVER SESSÃO EXISTENTE\n[8] FUNÇÕES EXTRAS\n[9] SAIR')
     print('-' * 28)
 
     choice = read_numbers('Escolha uma opção:\n>>> ')
 
     return choice
 
+def funcoes_Extras(sessoes):
+    """
+    """
+    from os import system
+
+    system('cls')
+    print('=-' * 10)
+    print(' FUNÇÕES DO GERENTE')
+    print('=-' * 10)
+    print('[1] REPOR ESTOQUE DE ACESSÓRIOS\n[2] ENVIAR MENSAGEM\n[3] VOLTAR AO MENU')
+    print('-' * 28)
+
+    choice = read_numbers('Escolha uma opção:\n>>> ')
+
+    if choice == 1:
+        pass
+    elif choice == 2:
+        pass
+    else:
+        system('cls')
+        return None
+
 
 def merge_sort(sessoes, chave):
+    """
+    """
+    
     if len(sessoes) > 1:
         meio = len(sessoes) // 2  
         metade_esquerda = sessoes[:meio]

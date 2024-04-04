@@ -25,7 +25,7 @@ def adiconar_Sessao(sessao):
 def adicionar_Acessorios_Sessao(sessao):
     """
     """
-    from projeto.acessorios import adicionar_Acessorio
+    from acessorios import adicionar_Acessorio
 
     system('cls')
 
@@ -104,7 +104,7 @@ def realizar_Venda(sessao):
 
                             if quantidade <= (acessorio['quantidade']):
                                 acessorio['quantidade'] = acessorio['quantidade'] - quantidade
-                                print(f'Valor total da compra: R${acessorio["preco"] * quantidade}')
+                                print(f'Valor total da compra: R${(acessorio["preco"] * quantidade):.2f}')
                                 escrever_Arquivo(sessao)
                                 print('Venda realizada com sucesso!')
                                 return None

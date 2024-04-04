@@ -1,6 +1,6 @@
-from projeto import menu, ler_Arquivo
-from projeto.sessoes import *
-from projeto.acessorios import *
+from projeto import menu, funcoes_Extras, ler_Arquivo
+from sessoes import *
+from acessorios import *
 
 Sessoes = ler_Arquivo()
 choice = 0
@@ -30,7 +30,10 @@ while True:
         remover_Sessao(Sessoes)
 
     elif choice == 8:
-        break
+        funcoes_Extras(Sessoes)
 
+    elif choice == 9:
+        break
+    
     else:
         print('Opção inválida!')
