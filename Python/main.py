@@ -1,4 +1,4 @@
-from projeto import menu, funcoes_Extras, ler_Arquivo
+from projeto import menu, ler_Arquivo
 from sessoes import *
 from acessorios import *
 
@@ -9,7 +9,7 @@ while True:
     choice = menu()
 
     if choice == 1:
-        adicionar_Acessorios_Sessao(Sessoes)
+        adicionar_Acessorios_Sessao(Sessoes) 
     
     elif choice == 2:
         adiconar_Sessao(Sessoes)
@@ -30,10 +30,7 @@ while True:
         remover_Sessao(Sessoes)
 
     elif choice == 8:
-        funcoes_Extras(Sessoes)
-
-    elif choice == 9:
         break
     
     else:
-        print('Opção inválida!')
+        print('Opção Inválida!')

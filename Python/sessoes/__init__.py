@@ -3,6 +3,7 @@ from os import system
 
 def adiconar_Sessao(sessao):
     """
+    Função para adicionar novas sessões ao sistema.
     """
     system('cls')
     
@@ -24,6 +25,7 @@ def adiconar_Sessao(sessao):
 
 def adicionar_Acessorios_Sessao(sessao):
     """
+    Função para adicionar acessórios a uma sessão já cadastrada.
     """
     from acessorios import adicionar_Acessorio
 
@@ -50,6 +52,7 @@ def adicionar_Acessorios_Sessao(sessao):
 
 def remover_Sessao(sessao):
     """
+    Função para remover sessões cadastradas do sistema.
     """
     system('cls')
 
@@ -71,6 +74,7 @@ def remover_Sessao(sessao):
 
 def realizar_Venda(sessao):
     """
+    Função para realizar a venda de acessórios de uma sessão.
     """
     from projeto import read_numbers
 
@@ -87,30 +91,28 @@ def realizar_Venda(sessao):
             print('Sessão encontrada, mas não possui acessórios cadastrados!')
             return None
 
-        else:          
+        elif nome == sessoes['nome']:          
             print('Sessão foi encontrada!')
                   
             compra = read_names('Qual o nome do acessório? ')
             
-            for count in range(0, len(sessao)):
-                for acessorio in sessao[count]['acessorios']:
+            for acessorio in sessoes['acessorios']:                
+                if compra == acessorio['nome']:
+                    print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\nPreço: R${acessorio["preco"]}\n'
+                            f'Disponível no estoque: {acessorio["quantidade"]}')
 
-                    if compra == acessorio['nome']:
-                        print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\nPreço: R${acessorio["preco"]}\n'
-                              f'Disponível no estoque: {acessorio["quantidade"]}')
+                    while True:
+                        quantidade = read_numbers('Informe a quantidade de itens: ', True)
 
-                        while True:
-                            quantidade = read_numbers('Informe a quantidade de itens: ', True)
-
-                            if quantidade <= (acessorio['quantidade']):
-                                acessorio['quantidade'] = acessorio['quantidade'] - quantidade
-                                print(f'Valor total da compra: R${(acessorio["preco"] * quantidade):.2f}')
-                                escrever_Arquivo(sessao)
-                                print('Venda realizada com sucesso!')
-                                return None
+                        if quantidade <= (acessorio['quantidade']):
+                            acessorio['quantidade'] = acessorio['quantidade'] - quantidade
+                            print(f'Valor total da compra: R${(float(acessorio["preco"]) * quantidade):.2f}')
+                            escrever_Arquivo(sessao)
+                            print('Venda realizada com sucesso!')
+                            return None
                             
-                            else:
-                                print('Essa quantidade de items não está disponível no estoque!')
+                        else:
+                            print('Essa quantidade de items não está disponível no estoque!')
                                 
             print('Acessório não encontrado!')
             return None
@@ -120,11 +122,12 @@ def realizar_Venda(sessao):
 
 def ver_Sessoes_Acessorios(sessao):
     """
+    Função para listar todas as sessões e seus acessórios.
     """
     system('cls')
 
     if len(sessao) == 0:
-        print('Nenhuma sessão cadastrado!') 
+        print('Nenhuma sessão cadastrada!') 
         return None
     
     for sessoes in sessao:

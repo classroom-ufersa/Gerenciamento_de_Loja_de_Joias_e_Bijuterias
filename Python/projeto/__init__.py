@@ -1,44 +1,31 @@
 def menu():
     """
+    Função para exibir o menu principal do sistema.
     """
+    
+    print("""\033[1m
+╔═══════════════════════════════════════════════╗
+║          Loja de Joias e Bijuterias           ║
+╠═══════════════════════════════════════════════╣
+║   [1] ADICIONAR ACESSÓRIO                     ║
+║   [2] ADICIONAR NOVA SESSÃO                   ║
+║   [3] BUSCAR ACESSÓRIO                        ║
+║   [4] VER TODAS AS SESSÕES E A ACESSÓRIOS     ║
+║   [5] REALIZAR VENDA DE ACESSÓRIOS            ║
+║   [6] REMOVER ACESSÓRIO                       ║
+║   [7] REMOVER SESSÃO EXISTENTE                ║
+║   [8] SAIR                                    ║
+╚═══════════════════════════════════════════════╝""")
 
-    print('=-' * 14)
-    print(' LOJA DE JOIAS E BIJUTERIAS')
-    print('=-' * 14)
-    print('[1] ADICIONAR ACESSÓRIO\n[2] ADICIONAR NOVA SESSÃO\n[3] BUSCAR ACESSÓRIO\n'
-          '[4] VER TODAS AS SESSÕES E A ACESSÓRIOS\n[5] REALIZAR VENDA DE ACESSÓRIOS\n'
-          '[6] REMOVER ACESSÓRIO\n[7] REMOVER SESSÃO EXISTENTE\n[8] FUNÇÕES EXTRAS\n[9] SAIR')
-    print('-' * 28)
-
-    choice = read_numbers('Escolha uma opção:\n>>> ')
+    choice = read_numbers('Escolha uma opção: ')
 
     return choice
-
-def funcoes_Extras(sessoes):
-    """
-    """
-    from os import system
-
-    system('cls')
-    print('=-' * 10)
-    print(' FUNÇÕES DO GERENTE')
-    print('=-' * 10)
-    print('[1] REPOR ESTOQUE DE ACESSÓRIOS\n[2] ENVIAR MENSAGEM\n[3] VOLTAR AO MENU')
-    print('-' * 28)
-
-    choice = read_numbers('Escolha uma opção:\n>>> ')
-
-    if choice == 1:
-        pass
-    elif choice == 2:
-        pass
-    else:
-        system('cls')
-        return None
 
 
 def merge_sort(sessoes, chave):
     """
+    Função de ordenação de sessões por nome.
+    Utiliza o algoritmo de ordenação Merge Sort.
     """
     
     if len(sessoes) > 1:
@@ -72,7 +59,12 @@ def merge_sort(sessoes, chave):
 
 def ler_Arquivo():
     """
+    Função para ler o arquivo de sessões salvas no arquivo .txt.
     """
+    from os import path
+
+    if not path.exists('sessoes.txt'):
+        open('sessoes.txt', 'x')
 
     with open('sessoes.txt', 'r') as file:
         sessoes = file.readlines()
@@ -84,6 +76,7 @@ def ler_Arquivo():
 
 def escrever_Arquivo(sessoes):
     """
+    Função para escrever os dados do sistema no arquivo .txt.
     """
 
     with open('sessoes.txt', 'w') as file:
@@ -93,7 +86,8 @@ def escrever_Arquivo(sessoes):
 
 def read_numbers(msg, test=False):
     """
-    Função para ler apenas números.
+    Tratamento de Erros:
+    Função para ler apenas números inteiros.
     """
 
     while True:
@@ -119,6 +113,8 @@ def read_numbers(msg, test=False):
 
 def read_float_numbers(msg):
     """
+    Tratamento de Erros:
+    Função para ler apenas números decimais.
     """
 
     while True:
@@ -138,6 +134,7 @@ def read_float_numbers(msg):
 
 def read_names(msg):
     """
+    Tratamento de Erros:
     Função para ler apenas nomes.
     """
 

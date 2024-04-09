@@ -3,12 +3,13 @@ from os import system
 
 def adicionar_Acessorio(sessoes, sessao):
     """
+    Função para preencher o cadastro de acessórios.
     """
     from projeto import merge_sort
 
     system('cls')
     
-    tipos = ('Jóia', 'Bijuteria')
+    tipos = ('Joia', 'Bijuteria')
     
     nome = read_names('Digite o nome do acessório: ')
 
@@ -35,6 +36,7 @@ def adicionar_Acessorio(sessoes, sessao):
 
 def buscar_Acessorio(sessao, busca='', retornar=False):
     """
+    Função para realizar a busca por um acessório cadastrado.
     """
 
     if(retornar == True):
@@ -67,6 +69,7 @@ def buscar_Acessorio(sessao, busca='', retornar=False):
 
 def remover_Acessorio(sessao):
     """
+    Função para remover um acessório cadastrado.
     """
     system('cls')
 
