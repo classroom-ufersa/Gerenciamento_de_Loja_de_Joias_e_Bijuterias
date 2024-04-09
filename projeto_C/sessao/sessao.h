@@ -1,7 +1,7 @@
 
 #ifndef SESSAO_H
 #define SESSAO_H
-#include "../acessorio/acessorio.h"
+#include "../acessorio/acessorio.c"
 
 typedef struct sessao Sessao;
 

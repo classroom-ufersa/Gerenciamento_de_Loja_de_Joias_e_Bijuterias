@@ -1,9 +1,11 @@
 #include "funcoes.h"
-#include "../sessao/sessao.h"
-#include "../acessorio/acessorio.h"
-#include <stdlib.h>
+#include "../sessao/sessao.c"
 #include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <time.h>
 
 void menu(){
     printf("[1] - Adicionar acessorio\n");
@@ -14,6 +16,66 @@ void menu(){
     printf("[6] - Remover sessao existente\n");
     printf("[7] - Listar sessoes e seus acessorios\n");
     printf("[8] - Sair\n");
+}
+
+int botao_voltar(){
+    int opcao;
+    do{
+    printf("[1] - Voltar\n");
+    printf("[2] - Proseguir\n");
+    scanf("%d", &opcao);
+    }while(opcao != 1 && opcao != 2);
+    
+    return opcao;
+}
+
+void pressione_enter(){
+    printf("Pressione ENTER para continuar...");
+    while(getchar() != '\n');
+    getchar();
+}
+
+void limpar_tela(){
+    printf("carregando...\n");
+    sleep(2);
+    system("cls");
+}
+
+int numero_inteiroc(char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!isdigit(str[i])) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int contem_apenas_letras(char *str) {
+    for (int index = 0; str[index] != '\0'; index++) {
+        if (!isalpha(str[index]) && str[index] != ' ') {
+            printf("Esse campo deve conter apenas letras.\n");
+            limpar_tela();
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void formata_string(char *str) {
+    int i;
+    for (i = 0; str[i] != '\0'; i++) {
+        if (i==0){
+            str[0] = toupper(str[0]);
+        }
+        else{
+            if (str[i - 1] == ' ') {
+                str[i] = toupper(str[i]);
+            } 
+            else {
+                str[i] = tolower(str[i]);
+            }
+        }
+    }
 }
 
 // Função auxiliar para mesclar duas listas ordenadas

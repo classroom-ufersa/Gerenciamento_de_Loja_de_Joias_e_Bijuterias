@@ -1,4 +1,22 @@
+#include "../sessao/sessao.h"
+
 void menu();
+
+int botao_voltar();
+
+void pressione_enter();
+
+void limpar_tela();
+
+int numero_inteiro(char *str);
+
+int contem_apenas_letras(char *str);
+
+void formata_string(char *str);
+
+
+
+
 // Função auxiliar para mesclar duas listas ordenadas
 Sessao* merge(Sessao *a, Sessao *b);
 

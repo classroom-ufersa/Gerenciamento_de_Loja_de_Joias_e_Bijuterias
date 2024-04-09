@@ -1,5 +1,4 @@
 #include "sessao.h"
-#include "../acessorio/acessorio.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,20 +18,22 @@ Sessao *criar_sessao(void){
 
 Sessao *inserir_sessao(Sessao *s){
     char nome[50], descricao[100];
-    printf("Digite o nome da sessao: ");
-    scanf(" %[^\n]", nome);
-    printf("Digite a descricao da sessao: ");
-    scanf(" %[^\n]", descricao);
+    botao_voltar();
+    do{
+        printf("Digite o nome da sessao: ");
+        scanf(" %[^\n]", nome);
+    }while(contem_apenas_letras(nome) == 0);
+    
+    do{
+        printf("Digite a descricao da sessao: ");
+        scanf(" %[^\n]", descricao); 
+    }while(contem_apenas_letras(descricao) == 0);
+    
 
     Sessao *nova_sessao = (Sessao *) malloc(sizeof(Sessao));
     if(nova_sessao == NULL){
         printf("Erro ao alocar memoria\n");
         exit(1);
-    }
-    Sessao *vereficarexiste = s;
-    if(strcmp(vereficarexiste->nome, nome) == 0){
-        printf("Sessao ja existe\n");
-        return s;
     }
 
     strcpy(nova_sessao->nome, nome);
@@ -44,6 +45,8 @@ Sessao *inserir_sessao(Sessao *s){
 
 void listar_sessoes(Sessao *inicio) {
     Sessao *atual = inicio;
+    botao_voltar();
+    printf("Sessoes disponiveis:\n");
     while (atual != NULL) {
         printf("Nome: %s\n", atual->nome);
         printf("Descricao: %s\n", atual->descricao);
@@ -91,40 +94,44 @@ void adicionar_acessorio(Sessao *inicio, char nome_sessao[], Acessorio *novo_ace
 void remover_acessorio(Sessao *lista_sessoes) {
     char nome_acessorio[50];
     char nome_sessao[50];
-    printf("Digite o nome da sessao onde deseja remover o acessorio: ");
-    scanf(" %[^\n]", nome_sessao);
-
-    printf("Digite o nome do acessorio a ser removido: ");
-    scanf(" %[^\n]", nome_acessorio);
-
-    Sessao *sessao_atual = lista_sessoes;
-    while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
-        sessao_atual = sessao_atual->proximo;
-    }
-
-    if (sessao_atual == NULL) {
-        printf("Sessao nao encontrada.\n");
+    if(botao_voltar() == 1){
         return;
-    }
+    }else{
+        printf("Digite o nome da sessao onde deseja remover o acessorio: ");
+        scanf(" %[^\n]", nome_sessao);
 
-    Acessorio *atual = sessao_atual->acessorios;
-    Acessorio *anterior = NULL;
+        printf("Digite o nome do acessorio a ser removido: ");
+        scanf(" %[^\n]", nome_acessorio);
 
-    while (atual != NULL && strcmp(atual->nome, nome_acessorio) != 0) {
-        anterior = atual;
-        atual = atual->proximo;
-    }
-
-    if (atual != NULL) {
-        if (anterior == NULL) {
-            sessao_atual->acessorios = atual->proximo;
-        } else {
-            anterior->proximo = atual->proximo;
+        Sessao *sessao_atual = lista_sessoes;
+        while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
+            sessao_atual = sessao_atual->proximo;
         }
-        printf("Acessorio removido com sucesso da sessao %s!\n", sessao_atual->nome);
-        free(atual);
-    } else {
-        printf("Acessorio nao encontrado na sessao %s.\n", nome_sessao);
+
+        if (sessao_atual == NULL) {
+            printf("Sessao nao encontrada.\n");
+            return;
+        }
+
+        Acessorio *atual = sessao_atual->acessorios;
+        Acessorio *anterior = NULL;
+
+        while (atual != NULL && strcmp(atual->nome, nome_acessorio) != 0) {
+            anterior = atual;
+            atual = atual->proximo;
+        }
+
+        if (atual != NULL) {
+            if (anterior == NULL) {
+                sessao_atual->acessorios = atual->proximo;
+            } else {
+                anterior->proximo = atual->proximo;
+            }
+            printf("Acessorio removido com sucesso da sessao %s!\n", sessao_atual->nome);
+            free(atual);
+        } else {
+            printf("Acessorio nao encontrado na sessao %s.\n", nome_sessao);
+        }
     }
 }
 
@@ -132,7 +139,7 @@ void realizar_venda(Sessao *lista_sessoes) {
     char nome_acessorio[50];
     int quantidade;
     char nome_sessao[50];
-
+    botao_voltar();
     printf("Digite o nome da sessao onde deseja realizar a venda: ");
     scanf(" %[^\n]", nome_sessao);
 
@@ -174,57 +181,66 @@ void realizar_venda(Sessao *lista_sessoes) {
 void buscar_acessorio(Sessao *inicio) {
     char nome_sessao[50];
     char nome_acessorio[50];
-
-    printf("Digite o nome da sessao onde deseja buscar o acessrio: ");
-    scanf("%s", nome_sessao);
-
-    printf("Digite o nome do acessorio que deseja buscar: ");
-    scanf("%s", nome_acessorio);
-
-    Sessao *sessao_atual = inicio;
-    while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
-        sessao_atual = sessao_atual->proximo;
-    }
-
-    if (sessao_atual == NULL) {
-        printf("Sessao nao encontrada.\n");
+    if(botao_voltar() == 1){
         return;
-    }
+    }else{
 
-    Acessorio *acessorio_atual = sessao_atual->acessorios;
-    while (acessorio_atual != NULL && strcmp(acessorio_atual->nome, nome_acessorio) != 0) {
-        acessorio_atual = acessorio_atual->proximo;
-    }
+    
+        printf("Digite o nome da sessao onde deseja buscar o acessrio: ");
+        scanf("%s", nome_sessao);
 
-    if (acessorio_atual == NULL) {
-        printf("Acessorio nao encontrado na sessao '%s'.\n", nome_sessao);
-    } else {
-        printf("Acessorio encontrado na sessao '%s':\n", nome_sessao);
-        printf("Nome: %s\n", acessorio_atual->nome);
-        printf("Tipo: %s\n", acessorio_atual->tipo);
-        printf("Preco: %.2f\n", acessorio_atual->preco);
-        printf("Quantidade em estoque: %d\n", acessorio_atual->quantidade);
+        printf("Digite o nome do acessorio que deseja buscar: ");
+        scanf("%s", nome_acessorio);
+
+        Sessao *sessao_atual = inicio;
+        while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
+            sessao_atual = sessao_atual->proximo;
+        }
+
+        if (sessao_atual == NULL) {
+            printf("Sessao nao encontrada.\n");
+            return;
+        }
+
+        Acessorio *acessorio_atual = sessao_atual->acessorios;
+        while (acessorio_atual != NULL && strcmp(acessorio_atual->nome, nome_acessorio) != 0) {
+            acessorio_atual = acessorio_atual->proximo;
+        }
+
+        if (acessorio_atual == NULL) {
+            printf("Acessorio nao encontrado na sessao '%s'.\n", nome_sessao);
+        } else {
+            printf("Acessorio encontrado na sessao '%s':\n", nome_sessao);
+            printf("Nome: %s\n", acessorio_atual->nome);
+            printf("Tipo: %s\n", acessorio_atual->tipo);
+            printf("Preco: %.2f\n", acessorio_atual->preco);
+            printf("Quantidade em estoque: %d\n", acessorio_atual->quantidade);
+        }
     }
 }
 
 void remover_sessao(Sessao **inicio) {
     char nome[50];
-    printf("Digite o nome da sessao que deseja remover: ");
-    scanf(" %[^\n]", nome);
+    if(botao_voltar() == 1){
+        return;
+    }else{
+        printf("Digite o nome da sessao que deseja remover: ");
+        scanf(" %[^\n]", nome);
 
-    Sessao *atual = *inicio;
-    Sessao *anterior = NULL;
-    while (atual != NULL && strcmp(atual->nome, nome) != 0) {
-        anterior = atual;
-        atual = atual->proximo;
-    }
-    if (atual != NULL) {
-        if (anterior == NULL) {
-            *inicio = atual->proximo;
-        } else {
-            anterior->proximo = atual->proximo;
+        Sessao *atual = *inicio;
+        Sessao *anterior = NULL;
+        while (atual != NULL && strcmp(atual->nome, nome) != 0) {
+            anterior = atual;
+            atual = atual->proximo;
         }
-        free(atual);
+        if (atual != NULL) {
+            if (anterior == NULL) {
+                *inicio = atual->proximo;
+            } else {
+                anterior->proximo = atual->proximo;
+            }
+            free(atual);
+        }
     }
 }
 
@@ -239,17 +255,11 @@ void salvar_dados(Sessao *inicio) {
 
     Sessao *atual_sessao = inicio;
     while (atual_sessao != NULL) {
-        fprintf(arquivo, "%s\n", "SESSAO:");
-        fprintf(arquivo, "%s\n", atual_sessao->nome);
-        fprintf(arquivo, "%s\n", atual_sessao->descricao);
+        fprintf(arquivo, "SESSAO: %s\tDESCRICAO: %s\n", atual_sessao->nome, atual_sessao->descricao);
 
         Acessorio *atual_acessorio = atual_sessao->acessorios;
         while (atual_acessorio != NULL) {
-            fprintf(arquivo, "%s\n", "ACESSORIOS:");
-            fprintf(arquivo, "%s\n", atual_acessorio->nome);
-            fprintf(arquivo, "%s\n", atual_acessorio->tipo);
-            fprintf(arquivo, "%.2f\n", atual_acessorio->preco);
-            fprintf(arquivo, "%d\n", atual_acessorio->quantidade);
+            fprintf(arquivo, "ACESSORIOS: %s\t%s\t%.2f\t%d\n", atual_acessorio->nome, atual_acessorio->tipo, atual_acessorio->preco, atual_acessorio->quantidade);
             atual_acessorio = atual_acessorio->proximo;
         }
 
@@ -261,6 +271,7 @@ void salvar_dados(Sessao *inicio) {
 }
 
 
+// Função para ler os dados salvos da loja de um arquivo de texto
 // Função para ler os dados salvos da loja de um arquivo de texto
 Sessao *ler_dados_salvos() {
     FILE *arquivo = fopen("dados_loja.txt", "r");
@@ -286,10 +297,7 @@ Sessao *ler_dados_salvos() {
 
         if (strstr(linha, "SESSAO:") != NULL) {
             // Criar uma nova sessão
-            fgets(nome_sessao, sizeof(nome_sessao), arquivo);
-            nome_sessao[strcspn(nome_sessao, "\n")] = '\0'; // Remover nova linha
-            fgets(descricao_sessao, sizeof(descricao_sessao), arquivo);
-            descricao_sessao[strcspn(descricao_sessao, "\n")] = '\0'; // Remover nova linha
+            sscanf(linha, "SESSAO: %[^\t]\tDESCRICAO: %[^\n]", nome_sessao, descricao_sessao);
             
             // Alocar memória para a nova sessão
             Sessao *nova_sessao = (Sessao *)malloc(sizeof(Sessao));
@@ -315,14 +323,7 @@ Sessao *ler_dados_salvos() {
             }
         } else if (strstr(linha, "ACESSORIOS:") != NULL && atual != NULL) {
             // Lendo os acessórios da sessão
-            fgets(nome_acessorio, sizeof(nome_acessorio), arquivo);
-            nome_acessorio[strcspn(nome_acessorio, "\n")] = '\0';
-
-            fgets(tipo_acessorio, sizeof(tipo_acessorio), arquivo);
-            tipo_acessorio[strcspn(tipo_acessorio, "\n")] = '\0';
-
-            fscanf(arquivo, "%f\n", &preco_acessorio);
-            fscanf(arquivo, "%d\n", &quantidade_acessorio);
+            sscanf(linha, "ACESSORIOS: %[^\t]\t%[^\t]\t%f\t%d", nome_acessorio, tipo_acessorio, &preco_acessorio, &quantidade_acessorio);
             
             // Alocar memória para o novo acessório
             Acessorio *novo_acessorio = (Acessorio *)malloc(sizeof(Acessorio));
@@ -353,3 +354,4 @@ Sessao *ler_dados_salvos() {
     fclose(arquivo);
     return inicio;
 }
+

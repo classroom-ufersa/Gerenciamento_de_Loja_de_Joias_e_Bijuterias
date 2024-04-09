@@ -11,13 +11,13 @@
 <h2 id="function" style="font-weight: bold; font-size: 2rem">Funcionalidades do projeto</h2>
 
 ```
-✅ Adicionar acessório;<br>
-✅ Remover acessório;<br>
-✅ Realizar venda de acessório;<br>
-✅ Buscar acessório;<br>
-✅ Adicionar nova sessão;<br>
-✅ Remover sessão existente;<br>
-✅ Listar todas as sessões e seus acessórios.<br>
+✅ Adicionar acessório;
+✅ Remover acessório;
+✅ Realizar venda de acessório;
+✅ Buscar acessório;
+✅ Adicionar nova sessão;
+✅ Remover sessão existente;
+✅ Listar todas as sessões e seus acessórios.
 ```
 
 # Como o projeto está organizado
