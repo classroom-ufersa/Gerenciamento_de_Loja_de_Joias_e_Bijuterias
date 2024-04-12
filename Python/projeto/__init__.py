@@ -2,10 +2,12 @@ def menu():
     """
     Função para exibir o menu principal do sistema.
     """
-    
+    from time import sleep
+    sleep(1)
+
     print("""\033[1m
 ╔═══════════════════════════════════════════════╗
-║          Loja de Joias e Bijuterias           ║
+║        💎 Loja de Joias e Bijuterias💎        ║
 ╠═══════════════════════════════════════════════╣
 ║   [1] ADICIONAR ACESSÓRIO                     ║
 ║   [2] ADICIONAR NOVA SESSÃO                   ║
@@ -17,15 +19,19 @@ def menu():
 ║   [8] SAIR                                    ║
 ╚═══════════════════════════════════════════════╝""")
 
-    choice = read_numbers('Escolha uma opção: ')
+    opcao = leia_numero('Escolha uma opção: ')
 
-    return choice
+    return opcao
 
 
 def merge_sort(sessoes, chave):
     """
     Função de ordenação de sessões por nome.
     Utiliza o algoritmo de ordenação Merge Sort.
+
+    Argumentos:
+        "sessoes" (lista): Lista de todas as sessões cadastradas.
+        "chave" (str): Parâmetro utlizado na ordenação.
     """
     
     if len(sessoes) > 1:
@@ -60,6 +66,9 @@ def merge_sort(sessoes, chave):
 def ler_Arquivo():
     """
     Função para ler o arquivo de sessões salvas no arquivo .txt.
+
+    Retorna:
+        "sessoes" (lista): Lista de todas as sessões salvas no arquivo .txt.
     """
     from os import path
 
@@ -77,6 +86,9 @@ def ler_Arquivo():
 def escrever_Arquivo(sessoes):
     """
     Função para escrever os dados do sistema no arquivo .txt.
+
+    Argumentos:
+        "sessoes" (lista): Lista de todas as sessões cadastradas.
     """
 
     with open('sessoes.txt', 'w') as file:
@@ -84,10 +96,16 @@ def escrever_Arquivo(sessoes):
             file.write(f'{sessao}\n')
 
 
-def read_numbers(msg, test=False):
+def leia_numero(msg, test=False):
     """
     Tratamento de Erros:
     Função para ler apenas números inteiros.
+
+    Argumentos:
+        "msg" (str): Mensagem a ser exibida.
+
+    Opcional:
+        "test" (bool): Parâmetro para mudar a mensagem de erro.
     """
 
     while True:
@@ -97,12 +115,15 @@ def read_numbers(msg, test=False):
         except (EOFError, IndexError):
             print('\033[31mERRO! Por favor, digite um número inteiro válido.\033[m')
 
+        except KeyboardInterrupt:
+            print('\033[31mERRO! Por favor, digite um nome válido.\033[m')
+        
         else:    
             if len(num) > 0 and num[0] != '0':
                 try:
                     num = int(num)
 
-                except (ValueError, TypeError, NameError, EOFError):
+                except (ValueError, TypeError, NameError):
                     print('\033[31mERRO! Por favor, digite um número inteiro válido.\033[m') 
 
                 else:
@@ -111,10 +132,13 @@ def read_numbers(msg, test=False):
                 print('\033[31mERRO! Por favor, digite uma opção válida.\033[m') if test == False else print('\033[31mERRO! Por favor, digite um número inteiro válido.\033[m')
 
 
-def read_float_numbers(msg):
+def leia_numero_Float(msg):
     """
     Tratamento de Erros:
     Função para ler apenas números decimais.
+
+    Argumentos:
+        "msg" (str): Mensagem a ser exibida.
     """
 
     while True:
@@ -132,10 +156,13 @@ def read_float_numbers(msg):
     return float(valor)
 
 
-def read_names(msg):
+def leia_nomes(msg):
     """
     Tratamento de Erros:
     Função para ler apenas nomes.
+
+    Argumentos:
+        "msg" (str): Mensagem a ser exibida.
     """
 
     while True:
@@ -151,6 +178,28 @@ def read_names(msg):
         except EOFError:
             print('\033[31mERRO! Por favor, digite um nome válido.\033[m')
 
+        except KeyboardInterrupt:
+            print('\033[35m\nVoltando ao menu...\033[m')
+            return 'voltar'
+        
         else:
             return nome.strip().title()
         
+def voltar_Menu(nome):
+    """
+    Função para voltar ao menu principal.
+
+    Argumentos:
+        "nome" (str): Nome a ser verificado.
+    
+    Retorna:
+        True: Se o nome for igual a 'voltar'.
+    """
+    from time import sleep
+    from os import system
+
+    if nome == 'voltar':
+        sleep(1)
+        system('cls') 
+        return True
+    

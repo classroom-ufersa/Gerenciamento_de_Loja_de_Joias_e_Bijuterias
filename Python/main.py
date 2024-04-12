@@ -3,34 +3,36 @@ from sessoes import *
 from acessorios import *
 
 Sessoes = ler_Arquivo()
-choice = 0
+opcao = 0
 
 while True:    
-    choice = menu()
+    opcao = menu()
 
-    if choice == 1:
+    if opcao == 1:
         adicionar_Acessorios_Sessao(Sessoes) 
     
-    elif choice == 2:
+    elif opcao == 2:
         adiconar_Sessao(Sessoes)
     
-    elif choice == 3:
+    elif opcao == 3:
         buscar_Acessorio(Sessoes)
 
-    elif choice == 4:
+    elif opcao == 4:
         ver_Sessoes_Acessorios(Sessoes)
 
-    elif choice == 5:
+    elif opcao == 5:
         realizar_Venda(Sessoes)
 
-    elif choice == 6:
+    elif opcao == 6:
         remover_Acessorio(Sessoes)
 
-    elif choice == 7:
+    elif opcao == 7:
         remover_Sessao(Sessoes)
 
-    elif choice == 8:
+    elif opcao == 8:
         break
     
     else:
-        print('Opção Inválida!')
+        print('\033[31mOpção Inválida!\033[m')
+
+print('\n8💎 Obrigado por usar o nosso sistema!💎')
