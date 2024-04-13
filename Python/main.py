@@ -35,4 +35,4 @@ while True:
     else:
         print('\033[31mOpção Inválida!\033[m')
 
-print('\n8💎 Obrigado por usar o nosso sistema!💎')
+print('\n💎 Obrigado por usar o nosso sistema!💎')

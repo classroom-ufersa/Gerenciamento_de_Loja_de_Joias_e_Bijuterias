@@ -6,7 +6,7 @@
 
 # PROBLEMATICA DO PROJETO
 
-### projete um sistema para gerenciamento de uma loja de joias e bijuterias. Seu sistema deve ser capaz de manipular sessões e acessórios.
+### Projete um sistema para gerenciamento de uma loja de joias e bijuterias. Seu sistema deve ser capaz de manipular sessões e acessórios.
 
 <h2 id="function" style="font-weight: bold; font-size: 2rem">Funcionalidades do projeto</h2>
 
