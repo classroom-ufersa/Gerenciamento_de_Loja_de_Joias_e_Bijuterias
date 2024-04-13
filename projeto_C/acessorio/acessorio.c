@@ -1,7 +1,8 @@
-#include "acessorio.h"
+#include "./acessorio.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../funcoes/funcoes.h"
 
 struct acessorio{
     char nome[50];
@@ -20,16 +21,19 @@ Acessorio *inserir_acessorio(Acessorio *a){
     char tipo[20];
     int quantidade;
     float preco;
-    printf("Digite o nome do acessorio: ");
-    scanf(" %[^\n]", nome);
-
-    printf("Digite o tipo do acessorio JOIA ou BIJUTERIA: ");
-    scanf(" %[^\n]", tipo);
+    do{
+        printf("Digite o nome do acessorio: ");
+        scanf(" %[^\n]", nome);
+    }while(contem_apenas_letras(nome) == 0);
     
-    printf("Digite o preco do acessorio: ");
-    scanf("%f", &preco);
-    printf("Digite a quantidade do acessorio: ");
-    scanf("%d", &quantidade);
+    do{
+        printf("Digite o tipo do acessorio JOIA ou BIJUTERIA: ");
+        scanf(" %[^\n]", tipo);
+    }while(contem_apenas_letras(tipo) == 0);
+    
+    preco = numero_floatc();
+
+    quantidade = numero_inteiroc();
 
     Acessorio *novo_acessorio = (Acessorio *) malloc(sizeof(Acessorio));
     if(novo_acessorio == NULL){

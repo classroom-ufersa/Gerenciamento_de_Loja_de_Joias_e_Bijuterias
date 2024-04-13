@@ -1,5 +1,4 @@
 #include "funcoes.h"
-#include "../sessao/sessao.c"
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -8,6 +7,7 @@
 #include <time.h>
 
 void menu(){
+    printf("=-=-=-=-=-=-=-= MENU =-=-=-=-=-=-=-=-=-=\n");
     printf("[1] - Adicionar acessorio\n");
     printf("[2] - Remover acessorio\n");
     printf("[3] - Vender acessorio\n");
@@ -16,38 +16,84 @@ void menu(){
     printf("[6] - Remover sessao existente\n");
     printf("[7] - Listar sessoes e seus acessorios\n");
     printf("[8] - Sair\n");
+    printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 }
 
-int botao_voltar(){
-    int opcao;
-    do{
-    printf("[1] - Voltar\n");
-    printf("[2] - Proseguir\n");
-    scanf("%d", &opcao);
-    }while(opcao != 1 && opcao != 2);
-    
+char botao_voltar(){
+    char opcao;
+    printf("[1] - Voltar, qualquer tecla para continuar: ");
+    scanf(" %c", &opcao);
+    limpar_tela();
     return opcao;
+}
+
+int valida_opcao() {
+    char opcao[10];
+    printf("Digite a opcao desejada: ");
+    scanf("%s", opcao);
+
+    for (int i = 0; opcao[i] != '\0'; i++) {
+        if (!isdigit(opcao[i])) {
+            printf("Opcao invalida. Digite um numero correspondente com as opcoes do menu.\n");
+            return -1;
+        }
+    }
+
+    int escolha = atoi(opcao);
+    return escolha;
 }
 
 void pressione_enter(){
     printf("Pressione ENTER para continuar...");
     while(getchar() != '\n');
     getchar();
-}
-
-void limpar_tela(){
-    printf("carregando...\n");
-    sleep(2);
     system("cls");
 }
 
-int numero_inteiroc(char *str) {
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (!isdigit(str[i])) {
-            return 0;
+int numero_inteiroc() {
+    char formata_numero[10];
+    int contador;
+    do{
+        contador = 0;
+        printf("Digite a quantidade: ");
+        scanf("%s", formata_numero);
+        getchar();
+        for (int i = 0; formata_numero[i] != '\0'; i++) {
+            if (!isdigit(formata_numero[i])) {
+                printf("Esse campo deve conter apenas numeros.\n");
+                sleep(1);
+                contador++;
+                break;
+            }
+
         }
-    }
-    return 1;
+        
+    }while((contador != 0));
+    
+    int numero = atoi(formata_numero);
+    return numero;
+}
+
+float numero_floatc() {
+    char formata_numero[20];
+    int contador;
+    do {
+        contador = 0;
+        printf("Digite o preco do acessorio: ");
+        scanf("%s", formata_numero);
+        getchar();
+        for (int i = 0; formata_numero[i] != '\0'; i++) {
+            if (!isdigit(formata_numero[i]) && formata_numero[i] != '.' && formata_numero[i] != '-') {
+                printf("Esse campo deve conter apenas números.\n");
+                sleep(1);
+                contador++;
+                break;
+            }
+        }
+    } while (contador != 0);
+
+    float numero = atof(formata_numero);
+    return numero;
 }
 
 int contem_apenas_letras(char *str) {
@@ -61,76 +107,16 @@ int contem_apenas_letras(char *str) {
     return 1;
 }
 
-void formata_string(char *str) {
+void maiusculo_string(char *str) {
     int i;
     for (i = 0; str[i] != '\0'; i++) {
-        if (i==0){
-            str[0] = toupper(str[0]);
-        }
-        else{
-            if (str[i - 1] == ' ') {
-                str[i] = toupper(str[i]);
-            } 
-            else {
-                str[i] = tolower(str[i]);
-            }
-        }
+        str[i] = toupper(str[i]);
     }
 }
 
-// Função auxiliar para mesclar duas listas ordenadas
-Sessao* merge(Sessao *a, Sessao *b) {
-    if (a == NULL)
-        return b;
-    if (b == NULL)
-        return a;
-
-    Sessao *resultado = NULL;
-
-    if (strcmp(a->nome, b->nome) <= 0) {
-        resultado = a;
-        resultado->proximo = merge(a->proximo, b);
-    } else {
-        resultado = b;
-        resultado->proximo = merge(a, b->proximo);
-    }
-
-    return resultado;
+void limpar_tela(){
+    printf("pera ai...\n");
+    sleep(1);
+    system("cls");
 }
 
-// Função para dividir a lista em duas partes
-void split(Sessao *inicio, Sessao **a, Sessao **b) {
-    Sessao *rapido;
-    Sessao *lento;
-    lento = inicio;
-    rapido = inicio->proximo;
-
-    while (rapido != NULL) {
-        rapido = rapido->proximo;
-        if (rapido != NULL) {
-            lento = lento->proximo;
-            rapido = rapido->proximo;
-        }
-    }
-
-    *a = inicio;
-    *b = lento->proximo;
-    lento->proximo = NULL;
-}
-
-// Função principal de merge sort para a lista de sessões
-void mergeSort(Sessao **head) {
-    Sessao *inicio = *head;
-    Sessao *a;
-    Sessao *b;
-
-    if (inicio == NULL || inicio->proximo == NULL)
-        return;
-
-    split(inicio, &a, &b);
-
-    mergeSort(&a);
-    mergeSort(&b);
-
-    *head = merge(a, b);
-}
