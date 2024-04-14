@@ -1,5 +1,6 @@
 from projeto import voltar_Menu, leia_nomes, leia_numero, leia_numero_Float , escrever_Arquivo
 from os import system
+from time import sleep
 
 def adicionar_Acessorio(acessorio_sessao, sessao):
     """
@@ -16,7 +17,7 @@ def adicionar_Acessorio(acessorio_sessao, sessao):
     
     tipos = ('Joia', 'Bijuteria')
     
-    nome = leia_nomes('Digite o nome do acessório: ')
+    nome = leia_nomes('\033[m\033[1mDigite o nome do acessório: ')
 
     if(voltar_Menu(nome) == True):
         return None
@@ -36,7 +37,7 @@ def adicionar_Acessorio(acessorio_sessao, sessao):
         preco = leia_numero_Float('Digite o preço do acessório: R$')
         quantidade = leia_numero('Informe a quantidade no estoque: ', True)
 
-        print(f'Acessório "{nome}" adicionado com sucesso!')
+        print(f'\033[32mAcessório "{nome}" adicionado com sucesso!\033[m')
 
         acessorio_sessao.append({'nome': nome, 'tipo': tipos[tipo - 1], 'preco': f'{preco:.2f}', 'quantidade': quantidade})
         merge_sort(acessorio_sessao, 'nome')
@@ -74,7 +75,7 @@ def buscar_Acessorio(sessao, busca='', retornar=False):
         for acessorio in sessao[count]['acessorios']:
             if nome == acessorio['nome'] and retornar == False:
                 print(f'\033[32mAcessório encontrado na sessão {sessao[count]["nome"]}!\033[m')
-                print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\n'
+                print(f'\033[1mNome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\n'
                   f'Preço: R${acessorio["preco"]}\nQuantidade: {acessorio["quantidade"]}')
                 return None
                 
@@ -110,9 +111,12 @@ def remover_Acessorio(sessao):
             for acessorio in sessao[count]['acessorios']:
                 if nome == acessorio['nome']:
                     print(f'\033[32mAcessório encontrado na sessão {sessao[count]["nome"]}!')
+                    sleep(1)
                     sessao[count]['acessorios'].remove(acessorio)
                     print('Acessório removido com sucesso!\033[m')
+                    sleep(1)
                     escrever_Arquivo(sessao)
+                    system('cls')
                     return None
                 
         print('\033[31mAcessório não encontrado!\033[m')

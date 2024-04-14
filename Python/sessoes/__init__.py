@@ -2,7 +2,7 @@ from projeto import voltar_Menu, leia_nomes, escrever_Arquivo, merge_sort
 from time import sleep
 from os import system
 
-def adiconar_Sessao(sessao):
+def adicionar_Sessao(sessao):
     """
     Função para adicionar novas sessões ao sistema.
 
@@ -21,7 +21,7 @@ def adiconar_Sessao(sessao):
         return None
     
     else:
-        descricao = leia_nomes('Digite a descrisão da sessão: ')
+        descricao = leia_nomes('Digite a descrição da sessão: ')
 
         if(voltar_Menu(descricao) == True):
             return None
@@ -30,7 +30,7 @@ def adiconar_Sessao(sessao):
         merge_sort(sessao, 'nome')
         escrever_Arquivo(sessao)
 
-        print('\033[32Sessão adicionada com sucesso!\033[m')
+        print('\033[32mSessão adicionada com sucesso!\033[m')
 
 
 def adicionar_Acessorios_Sessao(sessao):
@@ -123,16 +123,19 @@ def realizar_Venda(sessao):
 
         elif nome == sessoes['nome']:          
             print('\033[32mSessão foi encontrada!\033[m')
+            sleep(1)
             system('cls')
                   
-            compra = leia_nomes('Qual o nome do acessório? ')
+            compra = leia_nomes('\033[1mQual o nome do acessório? ')
 
             if(voltar_Menu(compra) == True):
                 return None
             
             for acessorio in sessoes['acessorios']:                
                 if compra == acessorio['nome'] and acessorio['quantidade'] > 0:
-                    print(f'Nome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\nPreço: R${acessorio["preco"]}\n'
+                    print(f'\033[32mAcessório encontrado!\033[m')
+                    sleep(0.5)
+                    print(f'\033[1mNome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\nPreço: R${acessorio["preco"]}\n'
                             f'Disponível no estoque: {acessorio["quantidade"]}')
                                     
                     while True:
@@ -153,16 +156,20 @@ def realizar_Venda(sessao):
                     sleep(1)
                     print('\033[1mDeseja adicionar mais acessórios ao estoque?')
                     
-                    opcao = leia_numero('[1] Sim\n[2] Não\n>>> ', True)
+                    while True:
+                        opcao = leia_numero('[1] Sim\n[2] Não\n>>> ', True)
 
-                    if opcao == 1:
-                        repor_Estoque(acessorio)
-                        escrever_Arquivo(sessao)
-                        return None
+                        if opcao == 1:
+                            repor_Estoque(acessorio)
+                            escrever_Arquivo(sessao)
+                            return None
                     
-                    else:
-                        return None     
-                           
+                        elif opcao == 2:
+                            print('\033[31mReposição cancelada!\033[m')
+                            return None 
+                            
+                        else:
+                            print('\033[31mOpção inválida!\033[m') 
                         
             print('\033[31mAcessório não encontrado!\033[m')
             return None
@@ -184,12 +191,12 @@ def ver_Sessoes_Acessorios(sessao):
         return None
     
     for sessoes in sessao:
-        print('=' * 60)
+        print('=' * 61)
         print(f'Sessão: {sessoes["nome"]:<12} | Descrição: {sessoes["descricao"]:<21}')
-        print('-' * 60)
+        print('-' * 61)
         print(f'{"Acessórios":<20} | {"Tipo":<10} | {"Preço":<12} | {"Quantidade":<10}')
-        print('-' * 60)
+        print('-' * 61)
         for acessorio in sessoes['acessorios']:
             print(f'{acessorio["nome"]:<20} | {acessorio["tipo"]:<10} | R${acessorio["preco"]:<10} | {acessorio["quantidade"]:<10}')
-        print('')
+        print('\n')
         

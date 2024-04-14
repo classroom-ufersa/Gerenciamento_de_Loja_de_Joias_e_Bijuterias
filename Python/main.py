@@ -12,7 +12,7 @@ while True:
         adicionar_Acessorios_Sessao(Sessoes) 
     
     elif opcao == 2:
-        adiconar_Sessao(Sessoes)
+        adicionar_Sessao(Sessoes)
     
     elif opcao == 3:
         buscar_Acessorio(Sessoes)
