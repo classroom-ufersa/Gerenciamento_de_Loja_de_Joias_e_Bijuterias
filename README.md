@@ -46,7 +46,7 @@
 
 # Documentação dos Projetos
 ## 📌 [Python ](https://github.com/classroom-ufersa/Gerenciamento_de_Loja_de_Joias_e_Bijuterias/tree/3d04b8fa86d8422b7396a140adf46bc01c5844d5/Python)
-## 📌 [Linguagem C](https://github.com/classroom-ufersa/Gerenciamento_de_Loja_de_Joias_e_Bijuterias/tree/3d04b8fa86d8422b7396a140adf46bc01c5844d5/projeto_C)
+## 📌 [Linguagem C](https://github.com/classroom-ufersa/Gerenciamento_de_Loja_de_Joias_e_Bijuterias/tree/main/projeto_C)
  <h2 id="tech" style="font-weight: bold; font-size: 2rem">Tecnologias Utilizadas</h2> 
   <img align="center" alt="python" src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white"/> <img align="center" alt="c" src="https://img.shields.io/badge/-14354C?style=for-the-badge&logo=c&logoColor=white"/>
 
