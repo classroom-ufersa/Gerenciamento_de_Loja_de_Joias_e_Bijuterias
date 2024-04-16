@@ -153,4 +153,4 @@ void maiusculo_string(char *str);
 ````
 int valida_opcao();
 ````
-* Descrição: Recebe a entrada do usuário para escolher uma opção do menu, verifica se é um número válido e retorna a opção escolhida.
+* Descrição: Recebe a entrada do usuário para escolher uma opção do menu, verifica se é um número válido e retorna a opção escolhida
