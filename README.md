@@ -4,21 +4,24 @@
 <h1 align="center">Gerenciamento de Loja de Joias e Bijuterias</h1>
 
 
-# PROBLEMATICA DO PROJETO
+# Problemática do Projeto
 
 ### Projete um sistema para gerenciamento de uma loja de joias e bijuterias. Seu sistema deve ser capaz de manipular sessões e acessórios.
 
-<h2 id="function" style="font-weight: bold; font-size: 2rem">Funcionalidades do projeto</h2>
+<h2 id="function" style="font-weight: bold; font-size: 2rem">Funcionalidades do Projeto</h2>
 
 ```
-✅ Adicionar acessório;
-✅ Remover acessório;
-✅ Realizar venda de acessório;
-✅ Buscar acessório;
-✅ Adicionar nova sessão;
-✅ Remover sessão existente;
-✅ Listar todas as sessões e seus acessórios.
+✅ Adicionar acessório
+✅ Remover acessório
+✅ Realizar venda de acessório
+✅ Buscar acessório
+✅ Adicionar nova sessão
+✅ Remover sessão existente
+✅ Listar todas as sessões e seus acessórios
 ```
+# Descrição
+<p> O sistema de gerenciamento foi implementado em duas linguagens de programação, sendo elas C e Python, tendo como Python a principal. O sistema em C está distribuído em TADs uma para sessão e outra para acessórios, e possui um módulo com as funções de tratativas de erro.
+</p>
 
 # Como o projeto está organizado
 
@@ -38,16 +41,12 @@
       |           ├──📁sessoes
       |           └─── init.py
       ├──main.py
-
-
-
-                    
+                  
 ```
 
-
-
-
-
+# Documentação dos Projetos
+## 📌 [Python ](https://github.com/classroom-ufersa/Gerenciamento_de_Loja_de_Joias_e_Bijuterias/tree/3d04b8fa86d8422b7396a140adf46bc01c5844d5/Python)
+## 📌 [Linguagem C](https://github.com/classroom-ufersa/Gerenciamento_de_Loja_de_Joias_e_Bijuterias/tree/3d04b8fa86d8422b7396a140adf46bc01c5844d5/projeto_C)
  <h2 id="tech" style="font-weight: bold; font-size: 2rem">Tecnologias Utilizadas</h2> 
   <img align="center" alt="python" src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white"/> <img align="center" alt="c" src="https://img.shields.io/badge/-14354C?style=for-the-badge&logo=c&logoColor=white"/>
 

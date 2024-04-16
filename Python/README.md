@@ -36,7 +36,7 @@ Optamos por usar listas e dicionários porque eles fornecem uma combinação ide
 
 ### Função de `Adicionar Sessão`  
 ```
-def adiconar_Sessao(sessao):
+def adicionar_Sessao(sessao):
 ```
 * Descrição: Permite adicionar sessões à loja. Recebe como parâmetro a lista de todas as sessões cadastradas. Depois, é perguntado ao usuário qual é o nome da sessão e sua descrição associada. Além disso, verifica-se a existência de sessões com nomes iguais. Dessa forma, utilizamos a função `append()` para adicionar o Dicionário ao fim da lista contendo: { 'nome': nome, 'descricao': descricao, 'acessorios': [ ] }. Por fim, chamamos a função `merge_sort()` para ordenar a lista e atualizamos o arquivo de sessões.
 
