@@ -1,7 +1,4 @@
 #include "sessao.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "../funcoes/funcoes.h"
 
 
@@ -19,31 +16,31 @@ Sessao *criar_sessao(void){
 
 Sessao *inserir_sessao(Sessao *s){
     char nome[50], descricao[100];
-    do{
+    
+    do {
         printf("Digite o nome da sessao: ");
         scanf(" %[^\n]", nome);
-        if(s != NULL){
-            Sessao *temporario = s;
-            while(temporario != NULL){
-                if(strcmp(temporario->nome, nome) == 0){
-                    printf("Erro: O nome da sessao ja existe.\n");
-                    return s;
-                }
-                temporario = temporario->proximo;
-            }
+        maiusculo_string(nome);
+    } while (contem_apenas_letras(nome) == 0);
+    Sessao *temporario = s;
+    while (temporario != NULL) {
+        if (strcmp(temporario->nome, nome) == 0) {
+            printf("O nome da sessao ja existe.\n");
+            sleep(1);
+            return s;
         }
-    }while(contem_apenas_letras(nome) == 0);
-    maiusculo_string(nome);
+        temporario = temporario->proximo;
+    }
     
-    do{
+    do {
         printf("Digite a descricao da sessao: ");
-        scanf(" %[^\n]", descricao); 
-    }while(contem_apenas_letras(descricao) == 0);
-    maiusculo_string(descricao);
+        scanf(" %[^\n]", descricao);
+        maiusculo_string(descricao); 
+    } while (contem_apenas_letras(descricao) == 0);
+   
     
-
     Sessao *nova_sessao = (Sessao *) malloc(sizeof(Sessao));
-    if(nova_sessao == NULL){
+    if (nova_sessao == NULL) {
         printf("Erro ao alocar memoria\n");
         exit(1);
     }
@@ -51,9 +48,23 @@ Sessao *inserir_sessao(Sessao *s){
     strcpy(nova_sessao->nome, nome);
     strcpy(nova_sessao->descricao, descricao);
     nova_sessao->acessorios = NULL;
-    nova_sessao->proximo = s;
-    return nova_sessao;
+    
+    if (s == NULL || strcmp(s->nome, nome) > 0) {
+        nova_sessao->proximo = s;
+        return nova_sessao;
+    } else {
+        Sessao *anterior = s;
+        Sessao *atual = s->proximo;
+        while (atual != NULL && strcmp(atual->nome, nome) < 0) {
+            anterior = atual;
+            atual = atual->proximo;
+        }
+        nova_sessao->proximo = atual;
+        anterior->proximo = nova_sessao;
+        return s;
+    }
 }
+
 
 void listar_sessoes(Sessao *inicio) {
     Sessao *atual = inicio;
@@ -76,7 +87,7 @@ void listar_sessoes(Sessao *inicio) {
     }
 }
 
-void adicionar_acessorio(Sessao *inicio, char nome_sessao[], Acessorio *novo_acessorio) {
+void adicionar_acessorio_sessao(Sessao *inicio, char nome_sessao[], Acessorio *novo_acessorio) {
     Sessao *sessao_atual = inicio;
     
     while (sessao_atual != NULL && strcmp(sessao_atual->nome, nome_sessao) != 0) {
@@ -92,14 +103,17 @@ void adicionar_acessorio(Sessao *inicio, char nome_sessao[], Acessorio *novo_ace
         novo_acessorio->proximo = sessao_atual->acessorios;
         sessao_atual->acessorios = novo_acessorio;
     } else {
-        Acessorio *atual = sessao_atual->acessorios;
-        while (atual->proximo != NULL && strcmp(novo_acessorio->nome, atual->proximo->nome) > 0) {
+        Acessorio *anterior = sessao_atual->acessorios;
+        Acessorio *atual = anterior->proximo;
+        while (atual != NULL && strcmp(novo_acessorio->nome, atual->nome) > 0) {
+            anterior = atual;
             atual = atual->proximo;
         }
-        novo_acessorio->proximo = atual->proximo;
-        atual->proximo = novo_acessorio;
+        novo_acessorio->proximo = atual;
+        anterior->proximo = novo_acessorio;
     }
 }
+
 
 // Função para remover um acessório de uma sessão
 void remover_acessorio(Sessao *lista_sessoes) {
@@ -275,14 +289,10 @@ void salvar_dados(Sessao *inicio) {
 
     Sessao *atual_sessao = inicio;
     while (atual_sessao != NULL) {
-        maiusculo_string(atual_sessao->nome);
-        maiusculo_string(atual_sessao->descricao);
         fprintf(arquivo, "SESSAO: %s\tDESCRICAO: %s\n", atual_sessao->nome, atual_sessao->descricao);
 
         Acessorio *atual_acessorio = atual_sessao->acessorios;
         while (atual_acessorio != NULL) {
-            maiusculo_string(atual_acessorio->nome);
-            maiusculo_string(atual_acessorio->tipo);
             fprintf(arquivo, "ACESSORIOS: %s\t%s\t%.2f\t%d\n", atual_acessorio->nome, atual_acessorio->tipo, atual_acessorio->preco, atual_acessorio->quantidade);
             atual_acessorio = atual_acessorio->proximo;
         }
@@ -368,61 +378,6 @@ Sessao *ler_dados_salvos() {
 
     fclose(arquivo);
     return inicio;
-}
-
-Sessao* merge(Sessao *a, Sessao *b) {
-    if (a == NULL)
-        return b;
-    if (b == NULL)
-        return a;
-
-    Sessao *resultado = NULL;
-
-    if (strcmp(a->nome, b->nome) <= 0) {
-        resultado = a;
-        resultado->proximo = merge(a->proximo, b);
-    } else {
-        resultado = b;
-        resultado->proximo = merge(a, b->proximo);
-    }
-
-    return resultado;
-}
-
-void split(Sessao *inicio, Sessao **a, Sessao **b) {
-    Sessao *rapido;
-    Sessao *lento;
-    lento = inicio;
-    rapido = inicio->proximo;
-
-    while (rapido != NULL) {
-        rapido = rapido->proximo;
-        if (rapido != NULL) {
-            lento = lento->proximo;
-            rapido = rapido->proximo;
-        }
-    }
-
-    *a = inicio;
-    *b = lento->proximo;
-    lento->proximo = NULL;
-}
-
-
-void mergeSort(Sessao **head) {
-    Sessao *inicio = *head;
-    Sessao *a;
-    Sessao *b;
-
-    if (inicio == NULL || inicio->proximo == NULL)
-        return;
-
-    split(inicio, &a, &b);
-
-    mergeSort(&a);
-    mergeSort(&b);
-
-    *head = merge(a, b);
 }
 
 void liberar_memoria(Sessao *inicio) {

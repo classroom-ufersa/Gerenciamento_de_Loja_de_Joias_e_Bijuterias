@@ -48,3 +48,11 @@ void maiusculo_string(char *str);
 
 */
 int valida_opcao();
+
+/*
+@brief Função para validar o tipo do acessório
+@param tipo Ponteiro para a string
+@return Retorna 1 se o tipo for válido
+@return Retorna 0 se o tipo for inválido
+*/
+int validar_tipo(char *tipo);

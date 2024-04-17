@@ -35,7 +35,7 @@ void listar_sessoes(Sessao *inicio);
 * @param novo_acessorio Ponteiro para o acessório que deseja adicionar
 * @return void
 */
-void adicionar_acessorio(Sessao *inicio, char nome_sessao[], Acessorio *novo_acessorio);
+void adicionar_acessorio_sessao(Sessao *inicio, char nome_sessao[], Acessorio *novo_acessorio);
 
 /*
 * @brief Função para remover uma sessão da lista de sessões
@@ -80,30 +80,5 @@ void salvar_dados(Sessao *inicio);
 * @return Retorna um ponteiro para a lista de sessões
 */
 Sessao *ler_dados_salvos();
-
-/*
-* @brief Função auxiliar para mesclar duas listas de sessões
-* @param a Ponteiro para a primeira lista de sessões
-* @param b Ponteiro para a segunda lista de sessões
-* @return Retorna um ponteiro para a lista de sessões mesclada
-* @return NULL caso não seja possível alocar memória
-*/
-Sessao* merge(Sessao *a, Sessao *b);
-
-/*
-* @brief Função para dividir a lista de sessões em duas
-* @param inicio Ponteiro para a lista de sessões
-* @param a Ponteiro para a primeira lista de sessões
-* @param b Ponteiro para a segunda lista de sessões
-* @return void
-*/
-void split(Sessao *inicio, Sessao **a, Sessao **b);
-
-/*
-* @brief Função para ordenar a lista de sessões
-* @param head Ponteiro para a lista de sessões
-* @return void
-*/
-void mergeSort(Sessao **head);
 
 #endif

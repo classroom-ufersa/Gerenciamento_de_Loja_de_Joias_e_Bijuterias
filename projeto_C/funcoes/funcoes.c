@@ -21,9 +21,11 @@ void menu(){
 
 char botao_voltar(){
     char opcao;
-    printf("[1] - Voltar, qualquer tecla para continuar: ");
-    scanf(" %c", &opcao);
-    limpar_tela();
+    do{
+        printf("[1] - Voltar [2] - Continuar [apenas o 1 caractere e valido]: ");
+        scanf(" %[^\n]", &opcao);
+        limpar_tela();
+    }while(opcao != '1' && opcao != '2');
     return opcao;
 }
 
@@ -120,3 +122,12 @@ void limpar_tela(){
     system("cls");
 }
 
+int validar_tipo(char *tipo){
+    if(strcmp(tipo, "JOIA") == 0 || strcmp(tipo, "BIJUTERIA") == 0){
+        return 1;
+    }else{
+        printf("Tipo invalido. Digite JOIA ou BIJUTERIA.\n");
+        limpar_tela();
+        return 0;
+    }
+}

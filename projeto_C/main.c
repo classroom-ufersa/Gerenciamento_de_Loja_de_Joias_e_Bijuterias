@@ -10,7 +10,6 @@ int main(){
     char nome_sessao[50];
     
     do{
-        mergeSort(&s);
         menu();
         opcao = valida_opcao();
                 
@@ -26,7 +25,7 @@ int main(){
                 maiusculo_string(nome_sessao);
                 }while(contem_apenas_letras(nome_sessao) == 0);            
                 a = inserir_acessorio(a);
-                adicionar_acessorio(s, nome_sessao, a);
+                adicionar_acessorio_sessao(s, nome_sessao, a);
                 pressione_enter();
                 break;
             }  
@@ -89,5 +88,7 @@ int main(){
         }
         salvar_dados(s);
     }while(opcao!= 8);
+
+    liberar_memoria(s);
 
 }

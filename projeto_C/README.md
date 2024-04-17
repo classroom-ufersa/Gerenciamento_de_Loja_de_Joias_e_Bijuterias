@@ -12,7 +12,6 @@
 - [Buscar Acessório](#função-para-buscar-acessório)
 - [Salvar Dados](#função-para-salvar-dados)
 - [Ler Dados Salvos](#função-para-ler-dados-salvos)
-- [Merge Sort](#função-para-merge-sort)
 #### **📌 TAD Acessório**
 - [Criar Acessório](#função-de-criar-acessório)
 - [Inserir Acessório](#função-de-inserir-acessório)
@@ -94,12 +93,6 @@ void salvar_dados(Sessao *inicio);
 Sessao *ler_dados_salvos();
 ````
 * Descrição: Esta função lê os dados salvos anteriormente no arquivo "dados_loja.txt" e os carrega de volta na memória. Primeiro, abre o arquivo em modo de leitura. Em seguida, percorre cada linha do arquivo. Se a linha contiver informações sobre uma sessão, cria uma nova sessão na memória e a adiciona à lista de sessões. Se a linha contiver informações sobre um acessório, cria um novo acessório e o adiciona à sessão atual. Ao finalizar a leitura do arquivo, fecha-o e retorna a lista de sessões carregada com os dados.
-
-### Função para `Merge Sort`
-````
-void mergeSort(Sessao **head);
-````
-* Descrição: Esta função implementa o algoritmo de ordenação Merge Sort para ordenar a lista de sessões. Ela recebe um ponteiro para o início da lista de sessões e ordena essa lista em ordem alfabética com base nos nomes das sessões. Ela utiliza as funções merge() e split() para dividir a lista em partes menores, ordenar cada parte e, em seguida, mesclar as partes ordenadas para obter a lista final ordenada.
 
 ### Função de `Criar Acessório`
 ````
