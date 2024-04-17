@@ -1,0 +1,4 @@
+{'nome': 'A', 'descricao': 'A', 'acessorios': []}
+{'nome': 'E', 'descricao': 'E', 'acessorios': [{'nome': 'Asa', 'tipo': 'Bijuteria', 'preco': '3.00', 'quantidade': 111}, {'nome': 'Ewq', 'tipo': 'Bijuteria', 'preco': '22.00', 'quantidade': 33}]}
+{'nome': 'W', 'descricao': 'W', 'acessorios': [{'nome': 'Wa', 'tipo': 'Bijuteria', 'preco': '3.00', 'quantidade': 33}]}
+{'nome': 'X', 'descricao': 'X', 'acessorios': [{'nome': 'Xaa', 'tipo': 'Bijuteria', 'preco': '22.00', 'quantidade': 33}, {'nome': 'Za', 'tipo': 'Joia', 'preco': '1.00', 'quantidade': 11}]}

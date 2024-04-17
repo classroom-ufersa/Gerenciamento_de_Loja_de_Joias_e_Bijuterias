@@ -185,6 +185,7 @@ def leia_nomes(msg):
         else:
             return nome.strip().title()
         
+        
 def voltar_Menu(nome):
     """
     Função para voltar ao menu principal.

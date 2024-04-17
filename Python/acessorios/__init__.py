@@ -71,10 +71,10 @@ def buscar_Acessorio(sessao, busca='', retornar=False):
         if(voltar_Menu(nome) == True):  
             return None
     
-    for count in range(0, len(sessao)):        
-        for acessorio in sessao[count]['acessorios']:
+    for posicao in sessao:        
+        for acessorio in posicao['acessorios']:            
             if nome == acessorio['nome'] and retornar == False:
-                print(f'\033[32mAcessório encontrado na sessão {sessao[count]["nome"]}!\033[m')
+                print(f'\033[32mAcessório encontrado na sessão {posicao["nome"]}!\033[m')
                 print(f'\033[1mNome: {acessorio["nome"]}\nTipo: {acessorio["tipo"]}\n'
                   f'Preço: R${acessorio["preco"]}\nQuantidade: {acessorio["quantidade"]}')
                 return None
@@ -107,15 +107,15 @@ def remover_Acessorio(sessao):
         if(voltar_Menu(nome) == True):
             return None
 
-        for count in range(0, len(sessao)):
-            for acessorio in sessao[count]['acessorios']:
+        for posicao in sessao:
+            for acessorio in posicao['acessorios']:
                 if nome == acessorio['nome']:
-                    print(f'\033[32mAcessório encontrado na sessão {sessao[count]["nome"]}!')
+                    print(f'\033[32mAcessório encontrado na sessão {posicao["nome"]}!')
                     sleep(1)
-                    sessao[count]['acessorios'].remove(acessorio)
-                    print('Acessório removido com sucesso!\033[m')
-                    sleep(1)
+                    posicao['acessorios'].remove(acessorio)
                     escrever_Arquivo(sessao)
+                    print('Acessório removido com sucesso!\033[m')
+                    sleep(1)                    
                     system('cls')
                     return None
                 

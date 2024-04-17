@@ -16,9 +16,10 @@ def adicionar_Sessao(sessao):
     if (voltar_Menu(nome) == True):
         return None
     
-    if nome in [sessao['nome'] for sessao in sessao]:
-        print(f'\033[31mSessão "{nome}" já cadastrada!\033[m')
-        return None
+    for posicao in sessao:
+        if nome == posicao['nome']:
+            print(f'\033[31mSessão "{nome}" já cadastrada!\033[m')
+            return None
     
     else:
         descricao = leia_nomes('Digite a descrição da sessão: ')
@@ -54,12 +55,12 @@ def adicionar_Acessorios_Sessao(sessao):
         if(voltar_Menu(nome) == True):
             return None
         
-        for sessoes in sessao:
-            if nome == sessoes['nome']:
+        for posicao in sessao:
+            if nome == posicao['nome']:
                 print('\033[32mSessão encontrada!\033[m')
                 system('pause')
 
-                adicionar_Acessorio(sessoes['acessorios'], sessao)
+                adicionar_Acessorio(posicao['acessorios'], sessao)
                 escrever_Arquivo(sessao)
                 return None
                 
@@ -84,11 +85,11 @@ def remover_Sessao(sessao):
     if(voltar_Menu(nome) == True):
         return None
 
-    for sessoes in sessao:
-        if nome == sessoes['nome']:
+    for posicao in sessao:
+        if nome == posicao['nome']:
             print('\033[32mSessão encontrada! Removendo...\033[m')
             sleep(1)
-            sessao.remove(sessoes)
+            sessao.remove(posicao)
             escrever_Arquivo(sessao)
             return None
                 
@@ -116,12 +117,12 @@ def realizar_Venda(sessao):
     if(voltar_Menu(nome) == True):
         return None
 
-    for sessoes in sessao:
-        if nome == sessoes['nome'] and len(sessoes['acessorios']) == 0:
+    for posicao in sessao:
+        if nome == posicao['nome'] and len(posicao['acessorios']) == 0:
             print('\033[33mSessão encontrada, mas não possui acessórios cadastrados!\033[m')
             return None
 
-        elif nome == sessoes['nome']:          
+        elif nome == posicao['nome']:          
             print('\033[32mSessão foi encontrada!\033[m')
             sleep(1)
             system('cls')
@@ -131,7 +132,7 @@ def realizar_Venda(sessao):
             if(voltar_Menu(compra) == True):
                 return None
             
-            for acessorio in sessoes['acessorios']:                
+            for acessorio in posicao['acessorios']:                
                 if compra == acessorio['nome'] and acessorio['quantidade'] > 0:
                     print(f'\033[32mAcessório encontrado!\033[m')
                     sleep(0.5)
@@ -190,13 +191,16 @@ def ver_Sessoes_Acessorios(sessao):
         print('\033[31mNenhuma sessão cadastrada!\033[m') 
         return None
     
-    for sessoes in sessao:
+    for posicao in sessao:
         print('=' * 61)
-        print(f'Sessão: {sessoes["nome"]:<12} | Descrição: {sessoes["descricao"]:<21}')
+        print(f'Sessão: {posicao["nome"]:<12} | Descrição: {posicao["descricao"]:<21}')
         print('-' * 61)
         print(f'{"Acessórios":<20} | {"Tipo":<10} | {"Preço":<12} | {"Quantidade":<10}')
         print('-' * 61)
-        for acessorio in sessoes['acessorios']:
+        for acessorio in posicao['acessorios']:
             print(f'{acessorio["nome"]:<20} | {acessorio["tipo"]:<10} | R${acessorio["preco"]:<10} | {acessorio["quantidade"]:<10}')
-        print('\n')
-        
+        print('-' * 61)
+        print(f'{"Total de acessórios: ":<10}{len(posicao["acessorios"]):<10}')
+        print(f'{"FIM":_^61}\n\n')
+    system('pause')
+    system('cls')    
