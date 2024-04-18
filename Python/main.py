@@ -1,6 +1,6 @@
-from projeto import menu, ler_Arquivo
-from sessoes import *
-from acessorios import *
+from sessoes.sessoes import *
+from acessorios.acessorios import buscar_Acessorio, remover_Acessorio
+from projeto.projeto import ler_Arquivo, menu
 
 Sessoes = ler_Arquivo()
 opcao = 0
